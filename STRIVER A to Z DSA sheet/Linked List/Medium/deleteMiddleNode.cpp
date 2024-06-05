@@ -12,16 +12,6 @@ class Node{
     }
 };
 
-int length(Node* head){
-    int length=0;
-    Node* temp=head;
-    while(temp!=NULL){
-        temp=temp->next;
-        length++;
-    }
-    return length;
-
-}
 
 void print(Node* head){
     Node* temp = head;
@@ -31,32 +21,24 @@ void print(Node* head){
     }
 }
 
-void remove(Node* &head, int& k){
-   
-
-    if(head==NULL){
-        return;
+Node* delteMiddleNode(Node* head){
+    if(head==NULL || head->next==NULL){
+        return NULL;
     }
 
-    remove(head->next,k);
+    Node* slow=head;
+    Node* fast=head->next;
 
-    if(k==0){
-        Node* temp=head;
-        head=head->next;
-        temp->next=NULL;
-        delete temp;
+    while(fast->next!=NULL && fast->next->next!=NULL){
+        fast=fast->next->next;
+        slow=slow->next;
+
     }
 
-    k--;
-
-}
-
-Node* removeNthNodeFromEnd(Node* &head, int k){
-    if(head==NULL){
-        return head;
-    }
-
-    remove(head,k);
+    Node* temp=slow->next;
+    slow->next=temp->next;
+    temp->next=NULL;
+    delete temp;
 
     return head;
 }
@@ -75,10 +57,12 @@ int main(){
     third->next=fourth;
     fourth->next=fifth;
 
-    Node* temp=removeNthNodeFromEnd(first,1);
+    print(first);
+
+    Node* temp=delteMiddleNode(first);
+    cout<<endl;
 
     print(temp);
-
    
 
 }
