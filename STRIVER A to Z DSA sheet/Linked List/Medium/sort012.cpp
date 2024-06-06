@@ -36,46 +36,51 @@ Node* sort(Node* head){
         return head;
     }
 
-    Node* zero=new Node(-1);
-    Node* one=new Node(-1);
-    Node* two=new Node(-1);
+    Node* dummyzero=new Node(-1);
+    Node* dummyone=new Node(-1);
+    Node* dummytwo=new Node(-1);
 
-    Node* temp1=zero;
-    Node* temp2=one;
-    Node* temp3=one;
+    Node* zero=dummyzero;
+    Node* one=dummyone;
+    Node* two=dummytwo;
 
     Node* temp=head;
 
     while(temp!=NULL){
         if(temp->data==0){
-            zero->next=temp;
-            temp=temp->next;
-            temp->next=NULL;
-            zero=zero->next;
+           zero->next=temp;
+           zero=zero->next;
 
         }else if( temp->data==1){
-            one->next=temp;
-            temp=temp->next;
-            temp->next=NULL;
-            one=one->next;
+           one->next=temp;
+           one=one->next;
 
         }else{
-            two->next=temp;
-            temp=temp->next;
-            temp->next=NULL;
-            two=two->next;
+           two->next=temp;
+           two=two->next;
 
         }
+        temp=temp->next;
     }
 
-    temp1=temp1->next;
-    temp2=temp2->next;
-    temp3=temp3->next;
+   // Link the end of the 0s list to the start of the 1s list or 2s list
+    zero->next = dummyone->next!=NULL ? dummyone->next : dummytwo->next;
 
-    one->next=temp2;
+    one->next=dummytwo->next;
 
+    two->next=NULL;
 
+    head=dummyzero->next;
+
+    // Free the dummy nodes
+    delete dummyzero;
+    delete dummyone;
+    delete dummytwo;
+
+    return head;
 }
+
+
 
 
 int main(){
@@ -93,6 +98,14 @@ int main(){
     fourth->next=fifth;
     fifth->next=sixth;
     sixth->next=seventh;
+
+    print(first);
+
+    cout<<endl;
+
+    Node* head=sort(first);
+
+    print(head);
 
 
 
