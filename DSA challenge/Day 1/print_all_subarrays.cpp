@@ -5,7 +5,9 @@ using namespace std;
 
 void backtrack(int i,vector<int>&nums,vector<int>&current,vector<vector<int>>&result){
 
+    
     result.push_back(current);
+
 
     for(int j=i;j<nums.size();++j){
         current.push_back(nums[j]);
@@ -36,8 +38,9 @@ vector<vector<int>>subsets(vector<int>&nums){
 
 
 int main(){
-   vector<int>nums{1,2,3};
+   vector<int>nums{10,9,2,5,3,7,101,18};
    vector<vector<int>>ans=subsets(nums);
+   
 
      
 }
